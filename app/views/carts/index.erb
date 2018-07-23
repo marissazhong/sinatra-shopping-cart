@@ -1,0 +1,20 @@
+<nav>
+  <a href="/items">Shop</a><br />
+  <a href="/carts">My Carts</a><br />
+  <a href="/logout">Logout</a><br />
+</nav>
+
+<h1>Your Shopping Carts</h1>
+
+<% if @carts.empty? %>
+    <p>No carts yet! Create one below:</p>
+<% else %>
+    <% @carts.each do |cart| %>
+        <p><%= cart.name %> Number of Items: <%= cart.length %></p>
+    <% end %>
+<% end %>
+
+<form action="/carts" method="post">
+    <input type="text" name="cart_name" id="Default Shopping Cart">
+    <input type="submit" value="Create New Cart">
+</form>

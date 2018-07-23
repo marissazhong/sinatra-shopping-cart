@@ -1,5 +1,10 @@
+<nav>
+  <a href="/items">Shop</a><br />
+  <a href="/carts">My Carts</a><br />
+  <a href="/logout">Logout</a><br />
+</nav>
+
 <h1><%=@items[0].category%></h1>
-<h3><a href="/users/<%=@user.username%>">View Your Cart</a></h3>
 
 <% @items.each do |item| %>
     <img src="../images/items/<%=@category%>/<%=item.name.downcase.gsub(" ","-")%>.jpg" alt="<%=item.name%>">

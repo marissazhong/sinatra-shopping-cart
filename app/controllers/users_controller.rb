@@ -5,20 +5,6 @@ class UsersController < ApplicationController
         @sum = @user.items.map {|i| i[:price]}.sum
         erb :'/users/show'
     end
-
-    post '/users/cart' do
-        @user = current_user
-        @item = Item.all.find {|i| i[:name] == params[:item_name]}
-        @user.items << @item
-        redirect to "/users/#{@user.username}"
-    end
-
-    post '/users/cart/delete' do
-        @user = current_user
-        @item = Item.all.find {|i| i[:name] == params[:item_name]}
-        @user.items.delete(@item)      
-        redirect to "/users/#{@user.username}"
-    end
     
     get '/signup' do
         if logged_in?
@@ -65,7 +51,4 @@ class UsersController < ApplicationController
             redirect to "/"
         end
     end
-    
-       
-
 end

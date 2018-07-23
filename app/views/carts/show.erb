@@ -1,0 +1,44 @@
+<nav>
+  <a href="/items">Shop</a><br />
+  <a href="/carts">My Carts</a><br />
+  <a href="/logout">Logout</a><br />
+</nav>
+
+<h1>Your <%=@cart.name%></h1>
+# need to add edit cart name form here
+<form action="/carts/<%=@cart.id%>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <input type="text" name="cart_name" placeholder="<%=@cart.name%>">
+    <input type="submit" value="Edit Cart Name">
+</form>
+
+<form action="/carts/delete-cart" method="delete">
+    <input type="hidden" name="cart_id" value="<%=@cart.id%>">
+    <input type="submit" value="Delete Cart">
+</form>
+
+<table>
+  <tr>
+    <th>Item Name</th>
+    <th>Item Size</th>
+    <th>Item Price</th>
+  </tr>
+  <% @cart.each do |item|%>
+    <tr>
+      <td><%=item.name%></td>
+      <td><%=item.size%></td>
+      <td><%=item.price%></td>
+      <td>
+        <form action="/carts/delete-item" method="delete">
+          <input type="hidden" name="item_id" value="<%=item.id%>">
+          <input type="hidden" name="cart_id" value="<%=@cart.id%>">
+          <input type="submit" value="Delete Item">
+        </form>
+      </td>
+    </tr>
+  <% end %>
+  <tf>
+    <td>Current Cart Total</td>
+    <td><%=@sum%></td>
+  </tf>
+</table>

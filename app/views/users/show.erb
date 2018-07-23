@@ -1,32 +1,7 @@
-<h1>Your Shopping Cart</h1>
+<nav>
+  <a href="/items">Shop</a><br />
+  <a href="/carts">My Carts</a><br />
+  <a href="/logout">Logout</a><br />
+</nav>
 
-<% if @user.items.empty? %>
-  <p>Your Shopping Cart is currently empty. <a href="/items">Start shopping!</a></p>
-<% else %>
-  <table>
-    <tr>
-      <th>Item Name</th>
-      <th>Item Size</th>
-      <th>Item Price</th>
-    </tr>
-    <% @user.items.each do |item|%>
-      <tr>
-        <td><%=item.name%></td>
-        <td><%=item.size%></td>
-        <td><%=item.price%></td>
-        <td>
-          <form action="/users/cart/delete" method="post">
-            <input type="hidden" name="item_name" value="<%=item.name%>">
-            <input type="submit" value="Delete Item">
-          </form>
-        </td>
-      </tr>
-    <% end %>
-    <tf>
-      <td>Cart Total</td>
-      <td><%=@sum%></td>
-    </tf>
-  </table>
-<% end %>
-
-<p><a href="/items">Keep Shopping</a> or <a href="/logout">Log Out</a></p>
+<h1>Welcome, <%=@user.username%>! Please navigate with the menu above.</h1>
