@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
 
     get '/items/:category' do
         @category = params[:category]
-        @items = Item.all.select {|i| i[:category] == @category}
+        @items = Item.all.select {|i| i[:category].downcase.gsub(" ","-") == @category}
         erb :'/items/show'
     end
 end

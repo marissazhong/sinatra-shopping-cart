@@ -1,5 +1,4 @@
 
-
-<% @items.select {|i| i[:category] == 'Nuts'}.each do |item| %>
+<% @items.each do |item| %>
     <%= item.name %><br />
 <% end %>

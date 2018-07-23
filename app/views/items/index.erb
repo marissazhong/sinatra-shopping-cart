@@ -4,5 +4,5 @@
 
 <% @categories.each do |category| %>
     <a href="/items/<%=category.downcase.gsub(" ","-")%>"><img src="images/index/<%=category.downcase.gsub(" ","-")%>.jpg" alt="<%=category%>"></a>
-    <%= category %>
+    <figcaption><%= category %></figcaption>
 <% end %>
