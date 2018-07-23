@@ -12,6 +12,7 @@ class ItemsController < ApplicationController
     end
 
     get '/items/:category' do
+        @user = current_user
         @category = params[:category]
         @items = Item.all.select {|i| i[:category].downcase.gsub(" ","-") == @category}
         erb :'/items/show'

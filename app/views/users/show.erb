@@ -1,7 +1,11 @@
 <h1>Your Shopping Cart</h1>
 
-<% @user.items.each do |item|%>
-  <%=tweet.name%><br />
+<% if @user.items == nil %>
+  <p>Your Shopping Cart is currently empty. <a href="/items">Start shopping!</a></p>
+<% else %>
+  <% @user.items.each do |item|%>
+    <%=item.name%><br />
+  <% end %>
 <% end %>
 
 <p><a href="/logout">Log Out</a></p>

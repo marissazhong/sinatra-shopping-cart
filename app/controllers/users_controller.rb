@@ -1,8 +1,15 @@
 class UsersController < ApplicationController
 
-    get '/users/:slug' do
-        @user = User.find(params[:slug])
+    get '/users/:username' do
+        @user = User.find_by(username: params[:username])
         erb :'/users/show'
+    end
+
+    post '/users/cart' do
+        @user = current_user
+        @item = Item.all.find {|i| i[:name] == params[:item_name]}
+        @user.items << @item
+        redirect to "/users/#{@user.username}"
     end
     
     get '/signup' do
