@@ -8,4 +8,5 @@ use Rack::MethodOverride
 
 use ItemsController
 use UsersController
+use CartsController
 run ApplicationController
