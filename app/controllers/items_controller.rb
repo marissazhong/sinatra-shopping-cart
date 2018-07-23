@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
     get '/items' do
         if logged_in?
             @user = current_user
+            @categories = ['Fats and Oils', 'Meat', 'Fish', 'Beans', 'Nuts', 'Dairy', 'Grains', 'Vegetables', 'Fruits']
             @items = Item.all
             erb :'/items/index'
         else
