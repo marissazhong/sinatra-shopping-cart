@@ -1,5 +1,8 @@
+<h1><%=@items[0].category%></h1>
+#needs button to View Your Cart
 
 <% @items.each do |item| %>
-    <img src="images/items/<%=@category.downcase.gsub(" ","-")%>/<%=item.name.downcase.gsub(" ","-")%>.jpg" alt="<%=item.name%>">
-    <figcaption><%= item.name %></figcaption>
+    <img src="../images/items/<%=@category%>/<%=item.name.downcase.gsub(" ","-")%>.jpg" alt="<%=item.name%>">
+    <figcaption><%= item.name %>, <%= item.size %><br />Price: $<%= item.price %></figcaption>
+    # needs button to add item to cart
 <% end %>
