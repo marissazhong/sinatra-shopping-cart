@@ -1,8 +1,7 @@
-<h1>Welcome, <%=@user.username %></h1>
+<h1>Your Shopping Cart</h1>
 
-<p>Here are your tweets: </p>
-<% @user.tweets.each do |tweet|%>
-  <%=tweet.content%><br />
+<% @user.items.each do |item|%>
+  <%=tweet.name%><br />
 <% end %>
 
 <p><a href="/logout">Log Out</a></p>
