@@ -1,4 +1,5 @@
 
 <% @items.each do |item| %>
-    <%= item.name %><br />
+    <img src="images/items/<%=item.category.downcase.gsub(" ","-")%>/<%=item.name.downcase.gsub(" ","-")%>.jpg" alt="<%=item.name%>">
+    <figcaption><%= item.name %></figcaption>
 <% end %>
