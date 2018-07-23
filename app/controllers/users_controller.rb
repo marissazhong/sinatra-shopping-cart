@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
     get '/users/:username' do
         @user = User.find_by(username: params[:username])
+        @sum = @user.items.map {|i| i[:price]}.sum
         erb :'/users/show'
     end
 
@@ -9,6 +10,13 @@ class UsersController < ApplicationController
         @user = current_user
         @item = Item.all.find {|i| i[:name] == params[:item_name]}
         @user.items << @item
+        redirect to "/users/#{@user.username}"
+    end
+
+    post '/users/cart/delete' do
+        @user = current_user
+        @item = Item.all.find {|i| i[:name] == params[:item_name]}
+        @user.items.delete(@item)      
         redirect to "/users/#{@user.username}"
     end
     

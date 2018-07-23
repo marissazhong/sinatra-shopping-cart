@@ -5,7 +5,7 @@
     <img src="../images/items/<%=@category%>/<%=item.name.downcase.gsub(" ","-")%>.jpg" alt="<%=item.name%>">
     <figcaption><%= item.name %>, <%= item.size %><br />Price: $<%= item.price %></figcaption>
     <form action="/users/cart" method="post">
-        <input type="hidden" name="item_name" value="<%=item.name%>">
+        <input type="hidden" name="item_name" value="<%=item.id%>">
         <input type="submit" value="Add to Cart">
     </form>
 <% end %>
