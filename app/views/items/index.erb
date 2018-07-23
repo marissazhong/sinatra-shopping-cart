@@ -3,5 +3,6 @@
 <h3>Please select the food category you are looking for:</h3><br />
 
 <% @categories.each do |category| %>
+    <a href="/items/<%=category.downcase.gsub(" ","-")%>"><img src="images/index/<%=category.downcase.gsub(" ","-")%>.jpg" alt="<%=category%>"></a>
     <%= category %>
 <% end %>
