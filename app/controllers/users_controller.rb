@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 
     get '/users/:username' do
         @user = User.find_by(username: params[:username])
-        @sum = @user.items.map {|i| i[:price]}.sum
         erb :'/users/show'
     end
     

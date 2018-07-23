@@ -1,16 +1,19 @@
 <nav>
-  <a href="/items">Shop</a><br />
-  <a href="/carts">My Carts</a><br />
-  <a href="/logout">Logout</a><br />
+  <a href="/items">Shop</a> <a href="/carts">My Carts</a> <a href="/logout">Logout</a>
 </nav>
 
 <h1><%=@items[0].category%></h1>
 
-<% @items.each do |item| %>
-    <img src="../images/items/<%=@category%>/<%=item.name.downcase.gsub(" ","-")%>.jpg" alt="<%=item.name%>">
-    <figcaption><%= item.name %>, <%= item.size %><br />Price: $<%= item.price %></figcaption>
-    <form action="/users/cart" method="post">
-        <input type="hidden" name="item_name" value="<%=item.name%>">
-        <input type="submit" value="Add to Cart">
-    </form>
-<% end %>
+<form action="/carts" method="post">
+    <% @items.each do |item| %>
+        <img src="../images/items/<%=@category%>/<%=item.name.downcase.gsub(" ","-")%>.jpg" alt="<%=item.name%>">
+        <figcaption><%= item.name %>, <%= item.size %><br />Price: $<%= item.price %></figcaption>
+        <input type="checkbox" name="items[]" id="<%item.name%> value="<%=item.id%>">
+    <% end %>
+    <% @carts.each do |cart| %>
+        <input type="radio" name="cart" id="<%=cart.name" value="<%cart.id%>"<%=cart.name%></input>
+    <% end %>
+    # need to add create new cart option
+    <p>Create New Cart: <input type="text" name="cart_name" id="new_cart"></input>
+    <input type="submit" value="Add Items to Cart">
+</form>

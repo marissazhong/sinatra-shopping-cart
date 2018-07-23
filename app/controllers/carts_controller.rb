@@ -20,12 +20,20 @@ class CartsController < ApplicationController
         end
     end
 
-    # post '/' do
-    #     @user = current_user
-    #     @item = Item.all.find {|i| i[:name] == params[:item_name]}
-    #     @user.items << @item
-    #     redirect to "/users/#{@user.username}"
-    # end
+    post '/carts' do
+        if logged_in?
+            if !params[:new_cart].empty?
+                @cart = Cart.create(name: params[:cart_name])
+            else
+                @cart = Cart.find_by(name: params[:name])
+            end
+            @cart.item_ids = params[:items] 
+            @cart.save
+            redirect to "/carts/#{@cart.id}"
+        else
+            redirect to "/login"
+        end
+    end
 
     patch '/carts/:id' do
         if logged_in?
@@ -63,7 +71,4 @@ class CartsController < ApplicationController
             redirect to "/login"
         end
     end
-            
-
-
 end
