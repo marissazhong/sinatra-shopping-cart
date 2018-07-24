@@ -18,3 +18,16 @@ Confirm
 - [x] Your commit messages are meaningful
 - [x] You made the changes in a commit that relate to the commit message
 - [x] You don't include changes in a commit that aren't related to the commit message
+
+Author's Tests
+
+Homepage:
+- [x] Homepage loads
+- [x] Sign Up link works
+- [x] Log In link works
+
+Sign Up:
+
+
+Log In:
+

@@ -1,5 +1,3 @@
-require 'pry'
-
 class ItemsController < ApplicationController
 
     # shows food categories

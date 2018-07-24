@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     # shows login page
     get '/login' do
         if logged_in?
-            redirect to "/items"
+            redirect to "/users/#{@user.username}"
         else
             erb :'/users/login'
         end
@@ -46,9 +46,10 @@ class UsersController < ApplicationController
         @user = User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id
-            redirect to "/items"
+            redirect to "/users/#{@user.username}"
         else
-            redirect to "/signup"
+            @status = 'login failed'
+            redirect to "/login"
         end
     end
     
