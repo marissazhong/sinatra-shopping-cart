@@ -1,4 +1,7 @@
+require 'rack-flash'
+
 class UsersController < ApplicationController
+    use Rack::Flash
 
     # shows user welcome page after login
     get '/users/:username' do
@@ -20,6 +23,7 @@ class UsersController < ApplicationController
         if !params[:username].empty? && !params[:email].empty? && !params[:password].empty?
             @existing_user = User.find_by(username: params[:username])
             if @existing_user
+                flash[:message] = "Username is taken. Please choose a different username or login below."
                 redirect to "/signup"
             else
                 @user = User.create(username: params[:username], email: params[:email], password: params[:password])
@@ -28,6 +32,7 @@ class UsersController < ApplicationController
                 redirect to "/items"
             end
         else
+            flash[:message] = "Account information invalid. Please try again."
             redirect to "/signup"
         end
     end
@@ -48,6 +53,7 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect to "/users/#{@user.username}"
         else
+            flash[:message] = "Login information invalid. Please try again."
             redirect to "/login"
         end
     end
