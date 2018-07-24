@@ -24,8 +24,8 @@ class CartsController < ApplicationController
     post '/carts' do
         if logged_in?
             if !params[:new_cart].empty?
-                @cart = Cart.create(params[:cart_name])
-                @cart.user = current_user
+                @cart = Cart.create(name: params[:new_cart])
+                @cart.user_id = current_user.id
             else
                 @cart = Cart.find(params[:cart_name])
             end

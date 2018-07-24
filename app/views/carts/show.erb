@@ -11,33 +11,41 @@
     <input type="submit" value="Edit Cart Name">
 </form>
 
+<br></br>
+
+<% if @cart.items.length == 0 %>
+  Whoops! No items in this cart yet. <a href="/items">Shop Now!</a>
+<% else %>
+  <table>
+    <tr>
+      <th>Item Name</th>
+      <th>Item Size</th>
+      <th>Item Price</th>
+    </tr>
+    <% @cart.items.each do |item|%>
+      <tr>
+        <td><%=item.name%></td>
+        <td><%=item.size%></td>
+        <td><%=item.price%></td>
+        <td>
+          <form action="/carts/<%=@cart.id%>/delete-item" method="delete">
+            <input type="hidden" name="item_id" value="<%=item.id%>">
+            <input type="hidden" name="cart_id" value="<%=@cart.id%>">
+            <input type="submit" value="Delete Item">
+          </form>
+        </td>
+      </tr>
+    <% end %>
+    <tf>
+      <td>Current Cart Total</td>
+      <td><%=@sum%></td>
+    </tf>
+  </table>
+<% end %>
+
+<br></br>
+
 <form action="/carts/<%=@cart.id%>/delete-cart" method="delete">
     <input type="hidden" name="cart_id" value="<%=@cart.id%>">
     <input type="submit" value="Delete Cart">
 </form>
-
-<table>
-  <tr>
-    <th>Item Name</th>
-    <th>Item Size</th>
-    <th>Item Price</th>
-  </tr>
-  <% @cart.items.each do |item|%>
-    <tr>
-      <td><%=item.name%></td>
-      <td><%=item.size%></td>
-      <td><%=item.price%></td>
-      <td>
-        <form action="/carts/<%=@cart.id%>/delete-item" method="delete">
-          <input type="hidden" name="item_id" value="<%=item.id%>">
-          <input type="hidden" name="cart_id" value="<%=@cart.id%>">
-          <input type="submit" value="Delete Item">
-        </form>
-      </td>
-    </tr>
-  <% end %>
-  <tf>
-    <td>Current Cart Total</td>
-    <td><%=@sum%></td>
-  </tf>
-</table>
