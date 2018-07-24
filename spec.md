@@ -59,6 +59,13 @@ Shop per Category (show items in category):
 My Carts (show all carts):
 - [x] Menu bar links are valid (Shop, My Carts, Logout)
 - [x] After login, user can only see his or her shopping carts
+- [x] Each cart 'Edit Cart' redirects to show cart
+- [x] Each cart 'Delete Cart' deletes cart and redirects back to show My Carts
+- [x] Page has form to create new cart
+- [x] 'Create new cart' redirects to show new cart
+
 
 Cart (show contents of single cart):
 - [x] Menu bar links are valid (Shop, My Carts, Logout)
+- [x] 'Edit Cart Name' redirects to show cart with new name
+- [x] 'Delete Cart' redirects to show all carts with cart deleted

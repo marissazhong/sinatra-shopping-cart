@@ -2,6 +2,11 @@
   <a href="/items">Shop</a> <a href="/carts">My Carts</a> [Current User: <%=@user.username%>] <a href="/logout">Logout</a>
 </nav>
 
+<br></br>
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <h1>Your Shopping Carts</h1>
 
 <% if @carts.empty? %>

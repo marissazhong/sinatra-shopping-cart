@@ -8,16 +8,16 @@
     <% @items.each do |item| %>
         <img src="../images/items/<%=@category%>/<%=item.name.downcase.gsub(" ","-")%>.jpg" alt="<%=item.name%>">
         <figcaption><%= item.name %>, <%= item.size %><br />Price: $<%= item.price %></figcaption>
-        <input type="checkbox" name="item_list[]" id="<%=item.name%>" value="<%=item.id%>">
+        <input type="checkbox" name="item_list[]" id="<%=item.id%>" value="<%=item.name%>">
         <br></br>
     <% end %>
     
     <% if !@carts.empty? %>
         <p>Choose which shopping cart to add items to:</p>
         <% @carts.each do |cart| %>
-            <input type="radio" name="cart_name" id="<%=cart.name%>" value="<%=cart.id%>"><%=cart.name%><br />
+            <input type="radio" name="cart_name" id="<%=cart.id%>" value="<%=cart.name%>"><%=cart.name%><br />
         <% end %>
-        <input type="radio" name="cart_name" id="create_cart" value="create_cart">Create New Cart:
+        <input type="radio" name="cart_name" id="create_cart">Create New Cart:
     <% else %>
         <p>Create New Cart: </p>
     <% end %>

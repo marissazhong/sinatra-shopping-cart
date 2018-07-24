@@ -22,6 +22,8 @@ class CartsController < ApplicationController
             if @cart && @cart.user == @user
                 @sum = @cart.items.map {|i| i[:price]}.sum
                 erb :'/carts/show'
+            else
+                redirect to "/carts"
             end
         else
             redirect to "/login"
@@ -35,19 +37,19 @@ class CartsController < ApplicationController
                 @existing_cart = Cart.find_by(name: params[:new_cart])
                 if !@existing_cart
                     @cart = Cart.create(name: params[:new_cart])
-                    @cart.user_id = current_user.id
-                elsif @existing_cart && @existing_cart.user != current_user
-                    flash[:message] = "Shopping cart name is taken. Please choose a different one."
-                    redirect to "/carts"
-                else
+                    current_user.carts << @cart
+                elsif @existing_cart && @existing_cart.user == current_user
                     @cart = @existing_cart
+                elsif @existing_cart && @existing_cart.user != current_user
+                    flash[:message] = "Shopping cart is taken. Please choose a different username or login below."
+                    redirect to "/carts"
                 end
             else
                 @cart = Cart.find_by(name: params[:cart_name])
             end
             if params[:item_list] != ""
                 params[:item_list].each do |item|
-                    @cart.items << Item.find_by_id(item)
+                    @cart.items << Item.where(name: item)
                 end
                 @cart.save
             end
@@ -62,10 +64,7 @@ class CartsController < ApplicationController
         if logged_in?
             if params[:cart_name] != ""
                 @cart = Cart.find_by(params[:id])
-                if @cart && @cart.user == current_user
-                    @cart.name = params[:cart_name]
-                    @cart.save
-                end
+                @cart.update(name: params[:cart_name])
             end
             redirect to "/carts/#{@cart.id}"
         else
@@ -89,9 +88,7 @@ class CartsController < ApplicationController
     delete '/carts/:id/delete-cart' do
         if logged_in?
             @cart = Cart.find_by_id(params[:id])
-            if @cart && @cart.user == current_user
-                @cart.delete
-            end
+            @cart.delete
             redirect to "/carts"
         else
             redirect to "/login"
