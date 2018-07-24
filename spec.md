@@ -46,16 +46,19 @@ Log Out:
 User Welcome Page:
 - [x] Menu bar links are valid (Shop, My Carts, Logout)
 
-Shop (Index Page):
+Shop Categories (show all categories):
 - [x] Menu bar links are valid (Shop, My Carts, Logout)
 - [x] Each category image link is valid
 
-Shop (Category Page):
+Shop per Category (show items in category):
 - [x] Menu bar links are valid (Shop, My Carts, Logout)
 - [x] All items in category are listed with name, size, price and checkbox
 - [x] Existing carts are listed with radio buttons
 - [x] Clicking 'Add Items to Cart' redirects to show correct cart (existing or new) and adds checked items
 
-
-My Carts:
+My Carts (show all carts):
+- [x] Menu bar links are valid (Shop, My Carts, Logout)
 - [x] After login, user can only see his or her shopping carts
+
+Cart (show contents of single cart):
+- [x] Menu bar links are valid (Shop, My Carts, Logout)

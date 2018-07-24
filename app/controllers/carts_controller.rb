@@ -1,4 +1,7 @@
+require 'rack-flash'
+
 class CartsController < ApplicationController
+    use Rack::Flash
 
     # shows all user's carts
     get '/carts' do
@@ -33,11 +36,14 @@ class CartsController < ApplicationController
                 if !@existing_cart
                     @cart = Cart.create(name: params[:new_cart])
                     @cart.user_id = current_user.id
+                elsif @existing_cart && @existing_cart.user != current_user
+                    flash[:message] = "Shopping cart name is taken. Please choose a different one."
+                    redirect to "/carts"
                 else
-                    @cart = Cart.find(params[:new_cart])
+                    @cart = @existing_cart
                 end
             else
-                @cart = Cart.find(params[:cart_name])
+                @cart = Cart.find_by(name: params[:cart_name])
             end
             if params[:item_list] != ""
                 params[:item_list].each do |item|
