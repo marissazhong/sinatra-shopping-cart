@@ -64,7 +64,6 @@ My Carts (show all carts):
 - [x] Page has form to create new cart
 - [x] 'Create new cart' redirects to show new cart
 
-
 Cart (show contents of single cart):
 - [x] Menu bar links are valid (Shop, My Carts, Logout)
 - [x] 'Edit Cart Name' redirects to show cart with new name

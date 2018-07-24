@@ -1,12 +1,27 @@
-<nav>
-    <a href="/items">Shop</a> <a href="/carts">My Carts</a> [Current User: <%=@user.username%>] <a href="/logout">Logout</a>
-</nav>
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        .item-icon { 
+            float:left;
+            padding: 25px;
+        }
+        </style>
+    </head>
 
-<h1>Welcome to the Five A Day store!</h1>
-<h3>We are dedicated to providing the highest quality whole foods and absolutely nothing else.</h3><br />
-<h3>Please select the food category you are looking for:</h3><br />
+    <body>
+        <nav>
+            <a href="/items">Shop</a> <a href="/carts">My Carts</a> [Current User: <%=@user.username%>] <a href="/logout">Logout</a>
+        </nav>
 
-<% @categories.each do |category| %>
-    <a href="/items/<%=category.downcase.gsub(" ","-")%>"><img src="images/index/<%=category.downcase.gsub(" ","-")%>.jpg" alt="<%=category%>"></a>
-    <figcaption><%= category %></figcaption>
-<% end %>
+        <h1>Welcome to the Five A Day store!</h1>
+        <h3>We are dedicated to providing the highest quality whole foods and absolutely nothing else.</h3><br />
+        <h3>Please select the food category you are looking for:</h3><br />
+        <% @categories.each do |category| %>
+            <div class="item-icon">
+                <a href="/items/<%=category.downcase.gsub(" ","-")%>"><img src="images/index/<%=category.downcase.gsub(" ","-")%>.jpg" alt="<%=category%>"></a>
+                <figcaption><%= category %></figcaption>
+            </div>
+        <% end %>
+    </body>
+</html>
