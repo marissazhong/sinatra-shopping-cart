@@ -2,6 +2,10 @@
 <a href="/items">Shop</a> <a href="/carts">My Carts</a> Current User: <%=@user.username%> <a href="/logout">Logout</a>
 </nav>
 
+<% if @existing_cart %>
+  <h3><%=@existing_cart.name%> already exists.</h3>
+<% end %>
+
 <h1>Your Cart, <%=@cart.name%></h1>
 
 <form action="/carts/<%=@cart.id%>" method="post">
