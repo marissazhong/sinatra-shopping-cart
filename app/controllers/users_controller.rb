@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
 
+    # shows user welcome page after login
     get '/users/:username' do
         @user = User.find_by(username: params[:username])
         erb :'/users/show'
     end
     
+    # shows signup form
     get '/signup' do
         if logged_in?
             redirect to "/items"
@@ -13,6 +15,7 @@ class UsersController < ApplicationController
         end
     end
     
+    # find or creates user
     post '/signup' do
         if !params[:username].empty? && !params[:email].empty? && !params[:password].empty?
             @existing_user = User.find_by(username: params[:username])
@@ -29,6 +32,7 @@ class UsersController < ApplicationController
         end
     end
     
+    # shows login page
     get '/login' do
         if logged_in?
             redirect to "/items"
@@ -37,6 +41,7 @@ class UsersController < ApplicationController
         end
     end
     
+    # logs in user
     post '/login' do
         @user = User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
@@ -47,6 +52,7 @@ class UsersController < ApplicationController
         end
     end
     
+    # logs out user
     get '/logout' do
         if logged_in?
             session.clear

@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
 
+    # shows all user's carts
     get '/carts' do
         if logged_in?
             @user = current_user
@@ -10,6 +11,7 @@ class CartsController < ApplicationController
         end
     end
 
+    # shows content of selected cart
     get '/carts/:id' do
         if logged_in?
             @user = current_user
@@ -23,6 +25,7 @@ class CartsController < ApplicationController
         end
     end
 
+    # finds or creates cart, and adds items
     post '/carts' do
         if logged_in?
             if !params[:new_cart].empty?
@@ -48,6 +51,7 @@ class CartsController < ApplicationController
         end
     end
 
+    # updates cart name
     patch '/carts/:id' do
         if logged_in?
             if params[:cart_name] != ""
@@ -63,6 +67,7 @@ class CartsController < ApplicationController
         end
     end
 
+    # deletes item from single cart
     delete '/carts/:id/delete-item' do
         if logged_in?
             @item = Item.find_by_id(params[:item_id])
@@ -74,6 +79,7 @@ class CartsController < ApplicationController
         end
     end
 
+    # deletes entire cart
     delete '/carts/:id/delete-cart' do
         if logged_in?
             @cart = Cart.find_by_id(params[:id])

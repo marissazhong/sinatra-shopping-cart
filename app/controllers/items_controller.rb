@@ -2,6 +2,7 @@ require 'pry'
 
 class ItemsController < ApplicationController
 
+    # shows food categories
     get '/items' do
         if logged_in?
             @user = current_user
@@ -13,6 +14,7 @@ class ItemsController < ApplicationController
         end
     end
 
+    # shows food items of selected category
     get '/items/:category' do
         if logged_in?
             @user = current_user
