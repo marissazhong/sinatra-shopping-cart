@@ -1,4 +1,11 @@
 <h3>Sign Up</h3>
+
+<% if @existing_user %>
+  <p>That username is taken. Please pick a different username:</p>
+<% else %>
+  <p>Thanks for shopping at Five A Day! Please sign up below:</p>
+<% end %>
+
 <form action="/signup" method="POST">
   <input type="text" name="username" placeholder="Username:">
   <input type="text" name="email" placeholder="Email:">
