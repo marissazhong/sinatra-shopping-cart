@@ -3,7 +3,7 @@ class CartsController < ApplicationController
     get '/carts' do
         if logged_in?
             @user = current_user
-            @carts = Cart.all.select {|cart| cart[:user_id] == @user.id}
+            @carts = Cart.where(user_id: @user.id).all
             erb :'/carts/index'
         else
             redirect to "/login"
@@ -14,8 +14,10 @@ class CartsController < ApplicationController
         if logged_in?
             @user = current_user
             @cart = Cart.find_by_id(params[:id])
-            @sum = @cart.items.map {|i| i[:price]}.sum
-            erb :'/carts/show'
+            if @cart && @cart.user == @user
+                @sum = @cart.items.map {|i| i[:price]}.sum
+                erb :'/carts/show'
+            end
         else
             redirect to "/login"
         end
@@ -29,10 +31,11 @@ class CartsController < ApplicationController
             else
                 @cart = Cart.find(params[:cart_name])
             end
-            params[:item_list].each do |item|
-                @cart.items << Item.find_by_id(item)
+            if params[:item_list] != ""
+                params[:item_list].each do |item|
+                    @cart.items << Item.find_by_id(item)
+                end
             end
-
             @cart.save
             redirect to "/carts/#{@cart.id}"
         else
@@ -44,8 +47,10 @@ class CartsController < ApplicationController
         if logged_in?
             if params[:cart_name] != ""
                 @cart = Cart.find_by(params[:id])
-                @cart.name = params[:cart_name]
-                @cart.save
+                if @cart && @cart.user == current_user
+                    @cart.name = params[:cart_name]
+                    @cart.save
+                end
             end
             redirect to "/carts/#{@cart.id}"
         else
