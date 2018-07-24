@@ -1,3 +1,5 @@
+require 'pry'
+
 class ItemsController < ApplicationController
 
     get '/items' do

@@ -2,8 +2,8 @@ class CartsController < ApplicationController
 
     get '/carts' do
         if logged_in?
-            @carts = Cart.all.select {|cart| cart.user == @user}
             @user = current_user
+            @carts = Cart.all.select {|cart| cart[:user_id] == @user.id}
             erb :'/carts/index'
         else
             redirect to "/login"
@@ -12,8 +12,8 @@ class CartsController < ApplicationController
 
     get '/carts/:id' do
         if logged_in?
+            @user = current_user
             @cart = Cart.find_by_id(params[:id])
-
             @sum = @cart.items.map {|i| i[:price]}.sum
             erb :'/carts/show'
         else
@@ -29,7 +29,10 @@ class CartsController < ApplicationController
             else
                 @cart = Cart.find(params[:cart_name])
             end
-            @cart.item_ids << params[:items]
+            params[:item_list].each do |item|
+                @cart.items << Item.find_by_id(item)
+            end
+
             @cart.save
             redirect to "/carts/#{@cart.id}"
         else
@@ -40,12 +43,11 @@ class CartsController < ApplicationController
     patch '/carts/:id' do
         if logged_in?
             if params[:cart_name] != ""
-                @cart = Cart.find_by(params[:cart_id])
+                @cart = Cart.find_by(params[:id])
                 @cart.name = params[:cart_name]
                 @cart.save
-            else
-                redirect to "/carts/#{@cart.id}"
             end
+            redirect to "/carts/#{@cart.id}"
         else
             redirect to "/login"
         end
@@ -54,8 +56,8 @@ class CartsController < ApplicationController
     delete '/carts/:id/delete-item' do
         if logged_in?
             @item = Item.find_by_id(params[:item_id])
-            @cart = Cart.find_by_id(params[:cart_id])
-            @cart.delete(@item)      
+            @cart = Cart.find_by_id(params[:id])
+            @cart.items.delete(@item)    
             redirect to "/carts/#{@cart.id}"
         else
             redirect to "/login"

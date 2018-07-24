@@ -1,12 +1,11 @@
 <nav>
-  <a href="/items">Shop</a> <a href="/carts">My Carts</a> <a href="/logout">Logout</a>
+<a href="/items">Shop</a> <a href="/carts">My Carts</a> Current User: <%=@user.username%> <a href="/logout">Logout</a>
 </nav>
 
-<h1>Your <%=@cart.name%></h1>
+<h1>Your Cart, <%=@cart.name%></h1>
 
 <form action="/carts/<%=@cart.id%>" method="post">
     <input type="hidden" name="_method" value="patch">
-    <input type="hidden" name="cart_id" value="<%=@cart.id%>">
     <input type="text" name="cart_name" placeholder="<%=@cart.name%>">
     <input type="submit" value="Edit Cart Name">
 </form>
@@ -28,9 +27,9 @@
         <td><%=item.size%></td>
         <td><%=item.price%></td>
         <td>
-          <form action="/carts/<%=@cart.id%>/delete-item" method="delete">
+          <form action="/carts/<%=@cart.id%>/delete-item" method="post">
+            <input type="hidden" name="_method" value="delete">
             <input type="hidden" name="item_id" value="<%=item.id%>">
-            <input type="hidden" name="cart_id" value="<%=@cart.id%>">
             <input type="submit" value="Delete Item">
           </form>
         </td>
