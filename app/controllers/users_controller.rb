@@ -21,8 +21,7 @@ class UsersController < ApplicationController
     # find or creates user
     post '/signup' do
         if !params[:username].empty? && !params[:email].empty? && !params[:password].empty?
-            @existing_user = User.find_by(username: params[:username])
-            if @existing_user
+            if User.find_by(username: params[:username])
                 flash[:message] = "Username is taken. Please choose a different username or login below."
                 redirect to "/signup"
             else
@@ -31,6 +30,9 @@ class UsersController < ApplicationController
                 session[:user_id] = @user.id
                 redirect to "/items"
             end
+        elsif params[:username].empty? || params[:email].empty || params[:password].empty?
+            flash[:message] = "Account must have a username, email, and password. Please try again."
+            redirect to "/signup"
         else
             flash[:message] = "Account information invalid. Please try again."
             redirect to "/signup"
@@ -40,6 +42,7 @@ class UsersController < ApplicationController
     # shows login page
     get '/login' do
         if logged_in?
+            @user = current_user
             redirect to "/users/#{@user.username}"
         else
             erb :'/users/login'
@@ -53,7 +56,7 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect to "/users/#{@user.username}"
         else
-            flash[:message] = "Login information invalid. Please try again."
+            flash[:message] = "Login information invalid. Please try again or sign up below."
             redirect to "/login"
         end
     end

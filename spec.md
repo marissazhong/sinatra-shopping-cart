@@ -10,7 +10,7 @@ Specs:
 - [x] Ensure that users can't modify content created by other users: The current user can only see his or her carts.
 - [x] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying: Users are able to create, read, update, and delete their carts.
 - [x] Include user input validations: Blank fields or existing usernames redirect to the signup or login page.
-- [x] Display validation failures to user with error message (example form URL e.g. /posts/new)
+- [x] Display validation failures to user with error message (example form URL e.g. /posts/new): I use rack-flash to show error messages for empty or invalid input.
 - [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code: I have included this.
 
 Confirm
@@ -27,15 +27,35 @@ Homepage:
 - [x] Log In link redirects to login form
 
 Sign Up:
+- [x] Page has login link
+- [x] Leaving sign up fields blank redirects to sign up page with 'must fill in all fields' error message
+- [x] Inputting existing username redirects to sign up page with 'already exists' error message
 - [x] Creating a new valid user logs in and redirects to store index
-- [x] User can only see his or her shopping carts
-- [x] Leaving sign up fields blank or inputting username that already exists redirects to sign up page
-
 
 Log In:
+- [x] Page has signup link
+- [x] Leaving sign up fields blank, not finding username, or incorrect password redirects to sign up page with 'invalid' error message
+- [x] Logging in with valid credentials redirects to user welcome page
+- [x] User is redirected to user welcome page if already logged in
+
+Log Out:
+- [x] Log out redirects to homepage
+- [x] Upon logout, show store route and show category items route redirects to login
+- [x] Upon logout, show carts route and show cart by id route redirects to login
+
+User Welcome Page:
+- [x] Menu bar links are valid (Shop, My Carts, Logout)
+
+Shop (Index Page):
+- [x] Menu bar links are valid (Shop, My Carts, Logout)
+- [x] Each category image link is valid
+
+Shop (Category Page):
+- [x] Menu bar links are valid (Shop, My Carts, Logout)
+- [x] All items in category are listed with name, size, price and checkbox
+- [x] Existing carts are listed with radio buttons
+- [x] Clicking 'Add Items to Cart' redirects to show correct cart (existing or new) and adds checked items
 
 
-Shopping:
-
-
-Carts:
+My Carts:
+- [x] After login, user can only see his or her shopping carts
