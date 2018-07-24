@@ -10,6 +10,9 @@
     <% @carts.each do |cart| %>
         <%= cart.name %><br />
         Number of Items: <%= cart.items.length %>
+        <form action="/carts/<%=cart.id%>" method="get">
+            <input type="submit" value="Edit Cart">
+        </form>
         <form action="/carts/<%=cart.id%>/delete-cart" method="post">
             <input type="hidden" name="_method" id="hidden" value="delete">
             <input type="submit" value="Delete Cart">
