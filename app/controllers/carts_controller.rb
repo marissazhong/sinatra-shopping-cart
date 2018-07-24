@@ -2,7 +2,7 @@ class CartsController < ApplicationController
 
     get '/carts' do
         if logged_in?
-            @carts = Cart.all.select {|cart| cart.user_id == @user.id}
+            @carts = Cart.all.select {|cart| cart.user == @user}
             @user = current_user
             erb :'/carts/index'
         else
@@ -13,7 +13,8 @@ class CartsController < ApplicationController
     get '/carts/:id' do
         if logged_in?
             @cart = Cart.find_by_id(params[:id])
-            @sum = @cart.map {|i| i[:price]}.sum
+
+            @sum = @cart.items.map {|i| i[:price]}.sum
             erb :'/carts/show'
         else
             redirect to "/login"
@@ -23,11 +24,12 @@ class CartsController < ApplicationController
     post '/carts' do
         if logged_in?
             if !params[:new_cart].empty?
-                @cart = Cart.create(name: params[:cart_name])
+                @cart = Cart.create(params[:cart_name])
+                @cart.user = current_user
             else
-                @cart = Cart.find_by(name: params[:name])
+                @cart = Cart.find(params[:cart_name])
             end
-            @cart.item_ids = params[:items] 
+            @cart.item_ids << params[:items]
             @cart.save
             redirect to "/carts/#{@cart.id}"
         else
@@ -49,7 +51,7 @@ class CartsController < ApplicationController
         end
     end
 
-    delete '/carts/delete-item' do
+    delete '/carts/:id/delete-item' do
         if logged_in?
             @item = Item.find_by_id(params[:item_id])
             @cart = Cart.find_by_id(params[:cart_id])
@@ -60,13 +62,13 @@ class CartsController < ApplicationController
         end
     end
 
-    delete '/carts/delete-cart' do
+    delete '/carts/:id/delete-cart' do
         if logged_in?
-            @cart = Cart.find_by_id(params[:cart_id])
+            @cart = Cart.find_by_id(params[:id])
             if @cart && @cart.user == current_user
                 @cart.delete
             end
-            redirect to "/users/#{@cart.user.username}"
+            redirect to "/carts"
         else
             redirect to "/login"
         end

@@ -8,11 +8,15 @@
     <p>No carts yet! Create one below:</p>
 <% else %>
     <% @carts.each do |cart| %>
-        <p><%= cart.name %> Number of Items: <%= cart.length %></p>
+        <%= cart.id %> Number of Items: <%= cart.items.length %>
+        <form action="/carts/<%=cart.id%>/delete-cart" method="post">
+            <input type="hidden" name="_method" id="hidden" value="delete">
+            <input type="submit" value="Delete Cart">
+        </form>
     <% end %>
 <% end %>
 
 <form action="/carts" method="post">
-    <input type="text" name="cart_name" id="Default Shopping Cart">
+    <input type="text" name="new_cart" value="Default Shopping Cart">
     <input type="submit" value="Create New Cart">
 </form>

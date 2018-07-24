@@ -11,7 +11,7 @@
     <input type="submit" value="Edit Cart Name">
 </form>
 
-<form action="/carts/delete-cart" method="delete">
+<form action="/carts/<%=@cart.id%>/delete-cart" method="delete">
     <input type="hidden" name="cart_id" value="<%=@cart.id%>">
     <input type="submit" value="Delete Cart">
 </form>
@@ -22,13 +22,13 @@
     <th>Item Size</th>
     <th>Item Price</th>
   </tr>
-  <% @cart.each do |item|%>
+  <% @cart.items.each do |item|%>
     <tr>
       <td><%=item.name%></td>
       <td><%=item.size%></td>
       <td><%=item.price%></td>
       <td>
-        <form action="/carts/delete-item" method="delete">
+        <form action="/carts/<%=@cart.id%>/delete-item" method="delete">
           <input type="hidden" name="item_id" value="<%=item.id%>">
           <input type="hidden" name="cart_id" value="<%=@cart.id%>">
           <input type="submit" value="Delete Item">
