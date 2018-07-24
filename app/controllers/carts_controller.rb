@@ -63,7 +63,7 @@ class CartsController < ApplicationController
     patch '/carts/:id' do
         if logged_in?
             if params[:cart_name] != ""
-                @cart = Cart.find_by(params[:id])
+                @cart = Cart.find(params[:id])
                 @cart.update(name: params[:cart_name])
             end
             redirect to "/carts/#{@cart.id}"
