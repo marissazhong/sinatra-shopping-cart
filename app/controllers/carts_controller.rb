@@ -41,9 +41,12 @@ class CartsController < ApplicationController
                 elsif @existing_cart && @existing_cart.user == current_user
                     @cart = @existing_cart
                 elsif @existing_cart && @existing_cart.user != current_user
-                    flash[:message] = "Shopping cart is taken. Please choose a different username or login below."
+                    flash[:message] = "Shopping cart is taken. Please choose a different shopping cart name."
                     redirect to "/carts"
                 end
+            elsif params[:new_cart].empty? && params[:cart_name] == "new_cart"
+                flash[:message] = "Shopping cart must have a name. Please try again."
+                redirect to "/carts"
             else
                 @cart = Cart.find_by(name: params[:cart_name])
             end

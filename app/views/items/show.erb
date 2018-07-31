@@ -37,7 +37,7 @@
                 <% @carts.each do |cart| %>
                     <input type="radio" name="cart_name" id="<%=cart.id%>" value="<%=cart.name%>"><%=cart.name%><br />
                 <% end %>
-                <input type="radio" name="cart_name" id="create_cart">Create New Cart:
+                <input type="radio" name="cart_name" id="create_cart" value="new_cart">Create New Cart:
             <% else %>
                 <p>Create New Cart: </p>
             <% end %>
