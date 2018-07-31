@@ -89,12 +89,12 @@ class CartsController < ApplicationController
 
     # deletes entire cart
     delete '/carts/:id/delete-cart' do
-        if logged_in?
-            @cart = Cart.find_by_id(params[:id])
+        @cart = Cart.find_by_id(params[:id])
+        if logged_in?  && @cart.user == current_user
             @cart.delete
-            redirect to "/carts"
         else
-            redirect to "/login"
+            flash[:message] = "Shopping cart invalid. Please try again."
         end
+            redirect to "/carts"
     end
 end
